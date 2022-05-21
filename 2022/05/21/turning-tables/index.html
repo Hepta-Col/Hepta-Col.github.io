@@ -20,30 +20,40 @@
     var CONFIG = {"hostname":"hepta-col.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Simplicity is the soul of efficiency">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zhenting&#39;s Personal Page">
-<meta property="og:url" content="https://hepta-col.github.io/index.html">
+  <meta name="description" content="Year: 2021 Paper Link: https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2107.07261 Code Link: https:&#x2F;&#x2F;github.com&#x2F;oriyor&#x2F;turning_tables Key Words: reasoning, semi-structured table   SummaryExisting LMs lack reasoning skills, an">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Turning Tables] Generating Examples from Semi-structured Tables for Endowing Language Models with Reasoning Skills">
+<meta property="og:url" content="https://hepta-col.github.io/2022/05/21/turning-tables/index.html">
 <meta property="og:site_name" content="Zhenting&#39;s Personal Page">
-<meta property="og:description" content="Simplicity is the soul of efficiency">
+<meta property="og:description" content="Year: 2021 Paper Link: https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2107.07261 Code Link: https:&#x2F;&#x2F;github.com&#x2F;oriyor&#x2F;turning_tables Key Words: reasoning, semi-structured table   SummaryExisting LMs lack reasoning skills, an">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hepta-col.github.io/turning-tables/image-20220515170620320.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/21/turning-tables/turning-tables/image-20220515172904363.png">
+<meta property="og:image" content="https://hepta-col.github.io/turning-tables/image-20220515173107157.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/21/turning-tables/turning-tables/image-20220515181058227.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/21/turning-tables/turning-tables/image-20220515181941958.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/21/turning-tables/turning-tables/image-20220515182134219.png">
+<meta property="article:published_time" content="2022-05-21T21:11:41.000Z">
+<meta property="article:modified_time" content="2022-05-21T21:19:45.228Z">
 <meta property="article:author" content="Zhenting Qi">
+<meta property="article:tag" content="Deep Learning, NLP">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hepta-col.github.io/turning-tables/image-20220515170620320.png">
 
-<link rel="canonical" href="https://hepta-col.github.io/">
+<link rel="canonical" href="https://hepta-col.github.io/2022/05/21/turning-tables/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Zhenting's Personal Page</title>
+  <title>[Turning Tables] Generating Examples from Semi-structured Tables for Endowing Language Models with Reasoning Skills | Zhenting's Personal Page</title>
   
 
 
@@ -142,9 +152,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -160,10 +171,9 @@
       <meta itemprop="name" content="Zhenting's Personal Page">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/21/turning-tables/" class="post-title-link" itemprop="url">[Turning Tables] Generating Examples from Semi-structured Tables for Endowing Language Models with Reasoning Skills</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          [Turning Tables] Generating Examples from Semi-structured Tables for Endowing Language Models with Reasoning Skills
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -187,7 +197,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
+        <blockquote>
 <p>Year: 2021</p>
 <p>Paper Link: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2107.07261">https://arxiv.org/abs/2107.07261</a></p>
 <p>Code Link: <a target="_blank" rel="noopener" href="https://github.com/oriyor/turning_tables">https://github.com/oriyor/turning_tables</a></p>
@@ -220,87 +230,33 @@
 
 <h4 id="Effect-of-new-sampling-strategy"><a href="#Effect-of-new-sampling-strategy" class="headerlink" title="Effect of new sampling strategy"></a>Effect of new sampling strategy</h4><img src="turning-tables/image-20220515182134219.png" alt="image-20220515182134219" style="zoom:80%;" />
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/Deep-Learning-NLP/" rel="tag"># Deep Learning, NLP</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://hepta-col.github.io/2022/05/21/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhenting Qi">
-      <meta itemprop="description" content="Simplicity is the soul of efficiency">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zhenting's Personal Page">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/21/hello-world/" class="post-title-link" itemprop="url">Hexo Manual</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2022-05-21 13:20:56 / Modified: 16:08:52" itemprop="dateCreated datePublished" datetime="2022-05-21T13:20:56-05:00">2022-05-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/05/21/hello-world/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/21/hello-world/" rel="prev" title="Hexo Manual">
+      <i class="fa fa-chevron-left"></i> Hexo Manual
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -353,6 +309,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-Statements"><span class="nav-number">2.</span> <span class="nav-text">Problem Statements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Methods"><span class="nav-number">3.</span> <span class="nav-text">Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Generation"><span class="nav-number">3.1.</span> <span class="nav-text">Data Generation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-driven-Sampling"><span class="nav-number">3.2.</span> <span class="nav-text">Error-driven Sampling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Finetune"><span class="nav-number">3.3.</span> <span class="nav-text">Finetune</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluations"><span class="nav-number">4.</span> <span class="nav-text">Evaluations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Experiment-Setup"><span class="nav-number">4.1.</span> <span class="nav-text">Experiment Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Models"><span class="nav-number">4.1.1.</span> <span class="nav-text">Models</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Datasets-amp-Metrics"><span class="nav-number">4.1.2.</span> <span class="nav-text">Datasets &amp; Metrics</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Results-of-Interest"><span class="nav-number">4.2.</span> <span class="nav-text">Results of Interest</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Performance-on-each-dataset"><span class="nav-number">4.2.1.</span> <span class="nav-text">Performance on each dataset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Effect-of-new-sampling-strategy"><span class="nav-number">4.2.2.</span> <span class="nav-text">Effect of new sampling strategy</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
