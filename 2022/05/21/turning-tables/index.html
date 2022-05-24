@@ -12,7 +12,7 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
   <script src="/lib/pace/pace.min.js"></script>
@@ -24,7 +24,7 @@
 
   <meta name="description" content="Existing LMs lack reasoning skills, and the authors tackle this problem by pretraining LMs with semi-structured tables, which are used to generate different sets containing 16 kinds of question-contex">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Paper] Turning Tables: Generating Examples from Semi-structured Tables for Endowing Language Models with Reasoning Skills">
+<meta property="og:title" content="[Turning Tables] Generating Examples from Semi-structured Tables for Endowing Language Models with Reasoning Skills">
 <meta property="og:url" content="https://hepta-col.github.io/2022/05/21/turning-tables/index.html">
 <meta property="og:site_name" content="Taurus">
 <meta property="og:description" content="Existing LMs lack reasoning skills, and the authors tackle this problem by pretraining LMs with semi-structured tables, which are used to generate different sets containing 16 kinds of question-contex">
@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://hepta-col.github.io/2022/05/21/turning-tables/image-20220515181941958.png">
 <meta property="og:image" content="https://hepta-col.github.io/2022/05/21/turning-tables/image-20220515182134219.png">
 <meta property="article:published_time" content="2022-05-21T21:28:51.817Z">
-<meta property="article:modified_time" content="2022-05-21T23:38:02.260Z">
+<meta property="article:modified_time" content="2022-05-24T22:44:49.082Z">
 <meta property="article:author" content="Zhenting Qi">
 <meta property="article:tag" content="Deep Learning">
 <meta property="article:tag" content="NLP">
@@ -56,7 +56,7 @@
   };
 </script>
 
-  <title>[Paper] Turning Tables: Generating Examples from Semi-structured Tables for Endowing Language Models with Reasoning Skills | Taurus</title>
+  <title>[Turning Tables] Generating Examples from Semi-structured Tables for Endowing Language Models with Reasoning Skills | Taurus</title>
   
 
 
@@ -87,7 +87,11 @@
   </style>
 </noscript>
 
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -219,7 +223,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [Paper] Turning Tables: Generating Examples from Semi-structured Tables for Endowing Language Models with Reasoning Skills
+          [Turning Tables] Generating Examples from Semi-structured Tables for Endowing Language Models with Reasoning Skills
         </h1>
 
         <div class="post-meta">
@@ -228,10 +232,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-05-21 16:28:51 / Modified: 18:38:02" itemprop="dateCreated datePublished" datetime="2022-05-21T16:28:51-05:00">2022-05-21</time>
+              <time title="Created: 2022-05-21 16:28:51" itemprop="dateCreated datePublished" datetime="2022-05-21T16:28:51-05:00">2022-05-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-05-24 17:44:49" itemprop="dateModified" datetime="2022-05-24T17:44:49-05:00">2022-05-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -252,7 +262,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2.4k</span>
+              <span>2.3k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -273,38 +283,46 @@
 
       
         <blockquote>
-<p>Year: 2021</p>
-<p>Paper Link: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2107.07261">https://arxiv.org/abs/2107.07261</a></p>
-<p>Code Link: <a target="_blank" rel="noopener" href="https://github.com/oriyor/turning_tables">https://github.com/oriyor/turning_tables</a></p>
+<p>Publication: 2021</p>
+<p>Links: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2107.07261">Paper</a>, <a target="_blank" rel="noopener" href="https://github.com/oriyor/turning_tables">Code</a></p>
 <p>Key Words: reasoning, semi-structured table</p>
 </blockquote>
 <p><img src="/2022/05/21/turning-tables/image-20220515170620320.png" alt="image-20220515170620320"></p>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>Existing LMs lack reasoning skills, and the authors tackle this problem by pretraining LMs with semi-structured tables, which are used to generate different sets containing 16 kinds of question-context-answer triplets, in order to endow LMs with various reasoning skills.</p>
-<h2 id="Problem-Statements"><a href="#Problem-Statements" class="headerlink" title="Problem Statements"></a>Problem Statements</h2><p>Large pretrained LMs have been proved to struggle in performing symbolic reasoning operations. Past work on improving reasoning skills mainly have two flavors: 1) adding specialized components for specific skills (numerical reasoning, temporal reasoning), 2) generating synthetic examples at scale (using grammars, templates, question generation models).</p>
-<h2 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h2><p>The authors argue that <strong>semi-structured tables</strong> are a valuable resource for automatic generation of training data that will endow LMs with reasoning skills. Tables can be crawled from the web, and question-context-answer (q-c-a) triplets can be generated from the tables. </p>
+<h2 id="summary"><a class="markdownIt-Anchor" href="#summary"></a> Summary</h2>
+<p>Existing LMs lack reasoning skills, and the authors tackle this problem by pretraining LMs with semi-structured tables, which are used to generate different sets containing 16 kinds of question-context-answer triplets, in order to endow LMs with various reasoning skills.</p>
+<h2 id="problem-statements-background"><a class="markdownIt-Anchor" href="#problem-statements-background"></a> Problem Statements &amp; Background</h2>
+<p>Large pretrained LMs have been proved to struggle in performing symbolic reasoning operations. Past work on improving reasoning skills mainly have two flavors: 1) adding specialized components for specific skills (numerical reasoning, temporal reasoning), 2) generating synthetic examples at scale (using grammars, templates, question generation models).</p>
+<h2 id="methods"><a class="markdownIt-Anchor" href="#methods"></a> Methods</h2>
+<p>The authors argue that <strong>semi-structured tables</strong> are a valuable resource for automatic generation of training data that will endow LMs with reasoning skills. Tables can be crawled from the web, and question-context-answer (q-c-a) triplets can be generated from the tables.</p>
 <p>Examples of q-c-a:</p>
 <img src="/2022/05/21/turning-tables/image-20220515172904363.png" alt="image-20220515172904363" style="zoom: 67%;">
-
 <p>Following is the overall architecture:</p>
 <img src="/2022/05/21/turning-tables/image-20220515173107157.png" alt="image-20220515173107157" style="zoom: 67%;">
-
-<h3 id="Data-Generation"><a href="#Data-Generation" class="headerlink" title="Data Generation"></a>Data Generation</h3><p>The authors generate table data by crawling tables from Wikipedia, and applying <strong>16 different example generators (EGs)</strong> on each table. Each EG corresponds to a particular reasoning skill (composition, numerical comparison, etc.), and comprises a small set of question templates. Variables in the templates are filled with content from the table, and the structure of the table allows to compute the answer automatically. The context is a list of facts generated from the table that contain facts required for answering the question as well as distractor facts.</p>
-<h3 id="Error-driven-Sampling"><a href="#Error-driven-Sampling" class="headerlink" title="Error-driven Sampling"></a>Error-driven Sampling</h3><p>The training process involves learning on multiple results from different EGs, so a proper multi-task training method is required. The authors make the training focus on the reasoning skills that the model still lacks, i.e. <strong>error-driven sampling</strong>. </p>
-<p>Past work have proposed uniform sampling, error sampling, etc.. An issue with error sampling is that if the error rate is high for a task and learning it is slow, the model will spend most time on that task at the expense of all other tasks, which may lead overall to low data efficiency. The authors put forward <strong>momentum sampling</strong>, which samples examples from a task in proportion to its rate of improvement, putting most probability mass on skills that are improving quickly.</p>
+<h3 id="data-generation"><a class="markdownIt-Anchor" href="#data-generation"></a> Data Generation</h3>
+<p>The authors generate table data by crawling tables from Wikipedia, and applying <strong>16 different example generators (EGs)</strong> on each table. Each EG corresponds to a particular reasoning skill (composition, numerical comparison, etc.), and comprises a small set of question templates. Variables in the templates are filled with content from the table, and the structure of the table allows to compute the answer automatically. The context is a list of facts generated from the table that contain facts required for answering the question as well as distractor facts.</p>
+<h3 id="error-driven-sampling"><a class="markdownIt-Anchor" href="#error-driven-sampling"></a> Error-driven Sampling</h3>
+<p>The training process involves learning on multiple results from different EGs, so a proper multi-task training method is required. The authors make the training focus on the reasoning skills that the model still lacks, i.e. <strong>error-driven sampling</strong>.</p>
+<p>Past work have proposed uniform sampling, error sampling, etc… An issue with error sampling is that if the error rate is high for a task and learning it is slow, the model will spend most time on that task at the expense of all other tasks, which may lead overall to low data efficiency. The authors put forward <strong>momentum sampling</strong>, which samples examples from a task in proportion to its rate of improvement, putting most probability mass on skills that are improving quickly.</p>
 <img src="/2022/05/21/turning-tables/image-20220515181058227.png" alt="image-20220515181058227" style="zoom:67%;">
-
-<h3 id="Finetune"><a href="#Finetune" class="headerlink" title="Finetune"></a>Finetune</h3><p>The authors finetune the Pre-trained for Reasoning Model, <strong>PReasM</strong>, on three RC datasets that require reasoning: DROP, IIRC, and MMQA. </p>
-<h2 id="Evaluations"><a href="#Evaluations" class="headerlink" title="Evaluations"></a>Evaluations</h2><h3 id="Experiment-Setup"><a href="#Experiment-Setup" class="headerlink" title="Experiment Setup"></a>Experiment Setup</h3><h4 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h4><ul>
+<h3 id="finetune"><a class="markdownIt-Anchor" href="#finetune"></a> Finetune</h3>
+<p>The authors finetune the Pre-trained for Reasoning Model, <strong>PReasM</strong>, on three RC datasets that require reasoning: DROP, IIRC, and MMQA.</p>
+<h2 id="evaluations"><a class="markdownIt-Anchor" href="#evaluations"></a> Evaluations</h2>
+<h3 id="experiment-setup"><a class="markdownIt-Anchor" href="#experiment-setup"></a> Experiment Setup</h3>
+<p>Models</p>
+<ul>
 <li>baseline: T5 (T5-base, T5-large)</li>
 </ul>
-<h4 id="Datasets-amp-Metrics"><a href="#Datasets-amp-Metrics" class="headerlink" title="Datasets &amp; Metrics"></a>Datasets &amp; Metrics</h4><ul>
+<p>Datasets &amp; Metrics</p>
+<ul>
 <li>DROP: F1, EM</li>
 <li>IIRC: F1, EM</li>
 <li>MMQA: F1, EM</li>
 </ul>
-<h3 id="Results-of-Interest"><a href="#Results-of-Interest" class="headerlink" title="Results of Interest"></a>Results of Interest</h3><h4 id="Performance-on-each-dataset"><a href="#Performance-on-each-dataset" class="headerlink" title="Performance on each dataset"></a>Performance on each dataset</h4><img src="/2022/05/21/turning-tables/image-20220515181941958.png" alt="image-20220515181941958" style="zoom:67%;">
-
-<h4 id="Effect-of-new-sampling-strategy"><a href="#Effect-of-new-sampling-strategy" class="headerlink" title="Effect of new sampling strategy"></a>Effect of new sampling strategy</h4><img src="/2022/05/21/turning-tables/image-20220515182134219.png" alt="image-20220515182134219" style="zoom:67%;">
+<h3 id="results-of-interest"><a class="markdownIt-Anchor" href="#results-of-interest"></a> Results of Interest</h3>
+<h4 id="performance-on-each-dataset"><a class="markdownIt-Anchor" href="#performance-on-each-dataset"></a> Performance on each dataset</h4>
+<img src="/2022/05/21/turning-tables/image-20220515181941958.png" alt="image-20220515181941958" style="zoom:67%;">
+<h4 id="effect-of-new-sampling-strategy"><a class="markdownIt-Anchor" href="#effect-of-new-sampling-strategy"></a> Effect of new sampling strategy</h4>
+<img src="/2022/05/21/turning-tables/image-20220515182134219.png" alt="image-20220515182134219" style="zoom:67%;">
     </div>
 
     
@@ -324,10 +342,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/05/21/hello-world/" rel="prev" title="[Doc] Hexo Manual">
-      <i class="fa fa-chevron-left"></i> [Doc] Hexo Manual
+    <a href="/2022/05/21/hello-world/" rel="prev" title="Hexo Manual">
+      <i class="fa fa-chevron-left"></i> Hexo Manual
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/23/RTFM/" rel="next" title="[RTFM] Weakly-supervised Video Anomaly Detection with Robust Temporal Feature Magnitude Learning">
+      [RTFM] Weakly-supervised Video Anomaly Detection with Robust Temporal Feature Magnitude Learning <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -386,7 +407,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem-Statements"><span class="nav-number">2.</span> <span class="nav-text">Problem Statements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Methods"><span class="nav-number">3.</span> <span class="nav-text">Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Generation"><span class="nav-number">3.1.</span> <span class="nav-text">Data Generation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error-driven-Sampling"><span class="nav-number">3.2.</span> <span class="nav-text">Error-driven Sampling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Finetune"><span class="nav-number">3.3.</span> <span class="nav-text">Finetune</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluations"><span class="nav-number">4.</span> <span class="nav-text">Evaluations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Experiment-Setup"><span class="nav-number">4.1.</span> <span class="nav-text">Experiment Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Models"><span class="nav-number">4.1.1.</span> <span class="nav-text">Models</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Datasets-amp-Metrics"><span class="nav-number">4.1.2.</span> <span class="nav-text">Datasets &amp; Metrics</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Results-of-Interest"><span class="nav-number">4.2.</span> <span class="nav-text">Results of Interest</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Performance-on-each-dataset"><span class="nav-number">4.2.1.</span> <span class="nav-text">Performance on each dataset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Effect-of-new-sampling-strategy"><span class="nav-number">4.2.2.</span> <span class="nav-text">Effect of new sampling strategy</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#summary"><span class="nav-number">1.</span> <span class="nav-text"> Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#problem-statements-background"><span class="nav-number">2.</span> <span class="nav-text"> Problem Statements &amp; Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#methods"><span class="nav-number">3.</span> <span class="nav-text"> Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#data-generation"><span class="nav-number">3.1.</span> <span class="nav-text"> Data Generation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#error-driven-sampling"><span class="nav-number">3.2.</span> <span class="nav-text"> Error-driven Sampling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finetune"><span class="nav-number">3.3.</span> <span class="nav-text"> Finetune</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#evaluations"><span class="nav-number">4.</span> <span class="nav-text"> Evaluations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#experiment-setup"><span class="nav-number">4.1.</span> <span class="nav-text"> Experiment Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#results-of-interest"><span class="nav-number">4.2.</span> <span class="nav-text"> Results of Interest</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#performance-on-each-dataset"><span class="nav-number">4.2.1.</span> <span class="nav-text"> Performance on each dataset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#effect-of-new-sampling-strategy"><span class="nav-number">4.2.2.</span> <span class="nav-text"> Effect of new sampling strategy</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -402,20 +423,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -460,13 +481,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">3k</span>
+    <span title="Symbols count total">9k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">3 mins.</span>
+    <span title="Reading time total">8 mins.</span>
 </div>
 
 <!--
@@ -524,6 +545,8 @@
 
 
 
+
+  
 
   
 

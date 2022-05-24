@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/taurus-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/taurus-16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hepta-col.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Existing NLG methods put limited emphasis on logical inference. The authors improved LM with such ability by a new training task called Logical NLG, accompanied with a new metric which evaluates the f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[LogicNLG] Logical Natural Language Generation from Open-Domain Tables">
+<meta property="og:url" content="https://hepta-col.github.io/2022/05/24/LogicNLG/index.html">
+<meta property="og:site_name" content="Taurus">
+<meta property="og:description" content="Existing NLG methods put limited emphasis on logical inference. The authors improved LM with such ability by a new training task called Logical NLG, accompanied with a new metric which evaluates the f">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524151519647.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524154947578.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524155657103.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524155727867.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524155755136.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524152917190.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524170034608.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524170251225.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524171228070.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524171658708.png">
+<meta property="article:published_time" content="2022-05-24T16:50:21.000Z">
+<meta property="article:modified_time" content="2022-05-24T23:09:34.423Z">
+<meta property="article:author" content="Zhenting Qi">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="NLP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524151519647.png">
+
+<link rel="canonical" href="https://hepta-col.github.io/2022/05/24/LogicNLG/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>[LogicNLG] Logical Natural Language Generation from Open-Domain Tables | Taurus</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Taurus</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Zhenting's Personal Page</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://hepta-col.github.io/2022/05/24/LogicNLG/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhenting Qi">
+      <meta itemprop="description" content="simplicity is the soul of efficiency">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Taurus">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [LogicNLG] Logical Natural Language Generation from Open-Domain Tables
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-24 11:50:21 / Modified: 18:09:34" itemprop="dateCreated datePublished" datetime="2022-05-24T11:50:21-05:00">2022-05-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper-Notes/" itemprop="url" rel="index"><span itemprop="name">Paper Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper-Notes/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper-Notes/NLP/NLG/" itemprop="url" rel="index"><span itemprop="name">NLG</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+            <div class="post-description">Existing NLG methods put limited emphasis on logical inference. The authors improved LM with such ability by a new training task called Logical NLG, accompanied with a new metric which evaluates the fidelity of the generated language. What’s more, they built a new dataset, providing a new testbed for logical inference.</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>Publication: 2020 ACL</p>
+<p>Links: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.10404">Paper</a>, <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42802447/article/details/115366577">Interpretation (CN)</a>, <a target="_blank" rel="noopener" href="https://github.com/wenhuchen/LogicNLG">Code</a></p>
+<p>Key Words: NLG, table-to-text</p>
+</blockquote>
+<h2 id="summary"><a class="markdownIt-Anchor" href="#summary"></a> Summary</h2>
+<p>Existing NLG methods put limited emphasis on logical inference. The authors improved LM with such ability by a new training task called Logical NLG, accompanied with a new metric which evaluates the fidelity of the generated language. What’s more, they built a new dataset, providing a new testbed for logical inference.</p>
+<h2 id="problem-statements-background"><a class="markdownIt-Anchor" href="#problem-statements-background"></a> Problem Statements &amp; Background</h2>
+<p>Given a table, large pretrained LMs are able to generate fluent and coherent texts, but they lack fidelity: the generated text should be consistent with the underlying data, knowledge, or meaning representation. Recent work have proposed several methods to tackle surface-level fidelity problems, but actually they are just restating the facts in the underlying data. Here is an example:</p>
+<img src="/2022/05/24/LogicNLG/image-20220524151519647.png" alt="image-20220524151519647" style="zoom: 67%;">
+<p>We hope that the LM is able to generate beyond superficial facts by inferring the facts that can be entailed by the presented facts, like the ones shown in the box “Logical Natural Language Generation”.</p>
+<h2 id="methods"><a class="markdownIt-Anchor" href="#methods"></a> Methods</h2>
+<h3 id="new-task-and-new-metric"><a class="markdownIt-Anchor" href="#new-task-and-new-metric"></a> New Task and New Metric</h3>
+<p>To equip LM with the stronger table-to-text generation ability, the authors propose a new task “logical NLG”, which means the generated texts should achieve high scores in <strong>logical fidelity</strong>. Existing IE-based metrics for evaluating generation have two major problems:</p>
+<img src="/2022/05/24/LogicNLG/image-20220524154947578.png" alt="image-20220524154947578" style="zoom: 67%;">
+<p>To avoid these problems, the authors proposed several alternating automatic metrics:</p>
+<h4 id="parsing-based-evaluation"><a class="markdownIt-Anchor" href="#parsing-based-evaluation"></a> Parsing-based Evaluation</h4>
+<p>It directly extracts the meaning representation from the generated sentence and executes it against the table to verify its correctness.</p>
+<img src="/2022/05/24/LogicNLG/image-20220524155657103.png" alt="image-20220524155657103" style="zoom: 67%;">
+<p>The sentence is represented by an expression (gray box), and then the expression could be executed against the table according to the fixed rule of the expression.</p>
+<h4 id="nli-based-evaluation"><a class="markdownIt-Anchor" href="#nli-based-evaluation"></a> NLI-based Evaluation</h4>
+<p>The NLI model is based on TableBERT, which linearizes the table into textual form and uses it as the evidence for natural language inference.</p>
+<img src="/2022/05/24/LogicNLG/image-20220524155727867.png" alt="image-20220524155727867" style="zoom:67%;">
+<h4 id="adversarial-evaluation"><a class="markdownIt-Anchor" href="#adversarial-evaluation"></a> Adversarial Evaluation</h4>
+<p>Manually annotate adversarial examples for the test/validation set by simply changing minimum words to revert the logic of the sentence. Such adversarial examples preserve linguistic components like length and style except the logic-related words to specifically disentangle the generation model’s reasoning skill.</p>
+<img src="/2022/05/24/LogicNLG/image-20220524155755136.png" alt="image-20220524155755136" style="zoom:67%;">
+<h4 id="discussion"><a class="markdownIt-Anchor" href="#discussion"></a> Discussion</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Parsing-based (SP-Acc)</th>
+<th>NLI-based (NLI-Acc)</th>
+<th>Adversarial (Adv-Acc)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pros</td>
+<td>unbiased, as it measures the peak samples in the model’s likelihood</td>
+<td>unbiased, as it measures the peak samples in the model’s likelihood</td>
+<td>accurate in terms of reflecting the model’s reasoning capability on the given samples</td>
+</tr>
+<tr>
+<td>Cons</td>
+<td>based on imperfect models, and thus evaluation score is inaccurate: more sensitive to number/calculation errors</td>
+<td>based on imperfect models, and thus evaluation score is inaccurate: more sensitive to semantic errors</td>
+<td>as the provided samples might not lie in the high-confidence area of the model’s distribution, it is biased in reflecting the model’s general reasoning capability</td>
+</tr>
+</tbody>
+</table>
+<h3 id="new-dataset"><a class="markdownIt-Anchor" href="#new-dataset"></a> New Dataset</h3>
+<p>The new dataset is built based on TabFact, a table-based fact-checking dataset with rich logical inferences in the annotated statements. This dataset contains rich logical inference, and every annotated sentence involves certain types of inference with minimum domain-specific knowledge. Sentences are made short, to focus on the problem of inference rather than linguistic complexity.</p>
+<img src="/2022/05/24/LogicNLG/image-20220524152917190.png" alt="image-20220524152917190" style="zoom: 50%;">
+<h3 id="training"><a class="markdownIt-Anchor" href="#training"></a> Training</h3>
+<h4 id="adversarial-regularization"><a class="markdownIt-Anchor" href="#adversarial-regularization"></a> Adversarial Regularization</h4>
+<p>First perform entity resolution to locate all the numbers, count, entities in the sentence and then randomly replace them with entities or numbers appearing in the table <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span>. These perturbed samples are used as adversarial examples to regularize the model’s behavior.</p>
+<img src="/2022/05/24/LogicNLG/image-20220524170034608.png" alt="image-20220524170034608" style="zoom:67%;">
+<p>Maximize the probability of correct samples, and minimize the probability of incorrect samples.</p>
+<h4 id="reinforcement-learning"><a class="markdownIt-Anchor" href="#reinforcement-learning"></a> Reinforcement Learning</h4>
+<p>To improve logical consistency of the generated sentence.</p>
+<img src="/2022/05/24/LogicNLG/image-20220524170251225.png" alt="image-20220524170251225" style="zoom: 67%;">
+<p>The full sentence receives a binary score <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mo stretchy="false">(</mo><mi>Y</mi><mo separator="true">,</mo><mi>T</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">r(Y, T)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mclose">)</span></span></span></span> from the semantic parser as reward, which denotes how good the sentence is, semantically.</p>
+<h3 id="generation"><a class="markdownIt-Anchor" href="#generation"></a> Generation</h3>
+<p>The authors utilize coarse-to-fine generation to avoid the problem of mismatch between sequence order and logical order.</p>
+<img src="/2022/05/24/LogicNLG/image-20220524171228070.png" alt="image-20220524171228070" style="zoom:80%;">
+<p>The generation is composed of two phases:</p>
+<ol>
+<li>generate template. Use the entity linker to identify the entities and numbers in the original sentence <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span></span> and replace them with placeholders.</li>
+<li>fill the placeholders.</li>
+</ol>
+<h2 id="evaluations"><a class="markdownIt-Anchor" href="#evaluations"></a> Evaluations</h2>
+<h3 id="experiment-setup"><a class="markdownIt-Anchor" href="#experiment-setup"></a> Experiment Setup</h3>
+<ul>
+<li>Non-pretrained models: LSTM, Transformer</li>
+<li>Pretrained models: Huggingface’s BERT &amp; GPT-2</li>
+</ul>
+<h3 id="results-of-interest"><a class="markdownIt-Anchor" href="#results-of-interest"></a> Results of Interest</h3>
+<p><img src="/2022/05/24/LogicNLG/image-20220524171658708.png" alt="image-20220524171658708"></p>
+<h2 id="conclusions"><a class="markdownIt-Anchor" href="#conclusions"></a> Conclusions</h2>
+<ol>
+<li>Pre-Trained LM can significantly boost both the fluency and logical fidelity metrics</li>
+<li>RL and Adversarial Training are trading fluency for fidelity</li>
+<li>Coarse-to-Fine generation can help partially alleviate the fidelity issue while maintaining high language fluency</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
+              <a href="/tags/NLP/" rel="tag"><i class="fa fa-tag"></i> NLP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/23/RTFM/" rel="prev" title="[RTFM] Weakly-supervised Video Anomaly Detection with Robust Temporal Feature Magnitude Learning">
+      <i class="fa fa-chevron-left"></i> [RTFM] Weakly-supervised Video Anomaly Detection with Robust Temporal Feature Magnitude Learning
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#summary"><span class="nav-number">1.</span> <span class="nav-text"> Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#problem-statements-background"><span class="nav-number">2.</span> <span class="nav-text"> Problem Statements &amp; Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#methods"><span class="nav-number">3.</span> <span class="nav-text"> Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new-task-and-new-metric"><span class="nav-number">3.1.</span> <span class="nav-text"> New Task and New Metric</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#parsing-based-evaluation"><span class="nav-number">3.1.1.</span> <span class="nav-text"> Parsing-based Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nli-based-evaluation"><span class="nav-number">3.1.2.</span> <span class="nav-text"> NLI-based Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adversarial-evaluation"><span class="nav-number">3.1.3.</span> <span class="nav-text"> Adversarial Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#discussion"><span class="nav-number">3.1.4.</span> <span class="nav-text"> Discussion</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-dataset"><span class="nav-number">3.2.</span> <span class="nav-text"> New Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#training"><span class="nav-number">3.3.</span> <span class="nav-text"> Training</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#adversarial-regularization"><span class="nav-number">3.3.1.</span> <span class="nav-text"> Adversarial Regularization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reinforcement-learning"><span class="nav-number">3.3.2.</span> <span class="nav-text"> Reinforcement Learning</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generation"><span class="nav-number">3.4.</span> <span class="nav-text"> Generation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#evaluations"><span class="nav-number">4.</span> <span class="nav-text"> Evaluations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#experiment-setup"><span class="nav-number">4.1.</span> <span class="nav-text"> Experiment Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#results-of-interest"><span class="nav-number">4.2.</span> <span class="nav-text"> Results of Interest</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusions"><span class="nav-number">5.</span> <span class="nav-text"> Conclusions</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhenting Qi"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Zhenting Qi</p>
+  <div class="site-description" itemprop="description">simplicity is the soul of efficiency</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Hepta-Col" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Hepta-Col" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:Zhenting.19@gmail.com" title="E-Mail → mailto:Zhenting.19@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhenting Qi</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">9k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">8 mins.</span>
+</div>
+
+<!--
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
