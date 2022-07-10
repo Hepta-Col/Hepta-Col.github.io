@@ -22,19 +22,27 @@
     var CONFIG = {"hostname":"hepta-col.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+  <meta name="description" content="A pretrained method for faithful table-to-text generation.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo Manual">
-<meta property="og:url" content="https://hepta-col.github.io/2022/05/21/hello-world/index.html">
+<meta property="og:title" content="[PLOG] Table-to-Logic Pretraining for Logical Table-to-Text Generation">
+<meta property="og:url" content="https://hepta-col.github.io/2022/07/09/PLOG/index.html">
 <meta property="og:site_name" content="Taurus">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta property="og:description" content="A pretrained method for faithful table-to-text generation.">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-21T18:20:56.336Z">
-<meta property="article:modified_time" content="2022-05-23T22:18:01.785Z">
+<meta property="og:image" content="https://hepta-col.github.io/2022/07/09/PLOG/image-20220710001335798.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/07/09/PLOG/image-20220710003037907.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/07/09/PLOG/image-20220710003052672.png">
+<meta property="article:published_time" content="2022-07-10T04:05:41.000Z">
+<meta property="article:modified_time" content="2022-07-10T05:35:28.257Z">
 <meta property="article:author" content="Zhenting Qi">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="Table Pretraining">
+<meta property="article:tag" content="Table-To-Text">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hepta-col.github.io/2022/07/09/PLOG/image-20220710001335798.png">
 
-<link rel="canonical" href="https://hepta-col.github.io/2022/05/21/hello-world/">
+<link rel="canonical" href="https://hepta-col.github.io/2022/07/09/PLOG/">
 
 
 <script id="page-configurations">
@@ -47,7 +55,7 @@
   };
 </script>
 
-  <title>Hexo Manual | Taurus</title>
+  <title>[PLOG] Table-to-Logic Pretraining for Logical Table-to-Text Generation | Taurus</title>
   
 
 
@@ -201,7 +209,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://hepta-col.github.io/2022/05/21/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://hepta-col.github.io/2022/07/09/PLOG/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -214,7 +222,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo Manual
+          [PLOG] Table-to-Logic Pretraining for Logical Table-to-Text Generation
         </h1>
 
         <div class="post-meta">
@@ -224,14 +232,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2022-05-21 13:20:56" itemprop="dateCreated datePublished" datetime="2022-05-21T13:20:56-05:00">2022-05-21</time>
+              <time title="Created: 2022-07-09 23:05:41" itemprop="dateCreated datePublished" datetime="2022-07-09T23:05:41-05:00">2022-07-09</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-23 17:18:01" itemprop="dateModified" datetime="2022-05-23T17:18:01-05:00">2022-05-23</time>
+                <time title="Modified: 2022-07-10 00:35:28" itemprop="dateModified" datetime="2022-07-10T00:35:28-05:00">2022-07-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,7 +247,27 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Documentations/" itemprop="url" rel="index"><span itemprop="name">Documentations</span></a>
+                  <a href="/categories/Paper-Notes/" itemprop="url" rel="index"><span itemprop="name">Paper Notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Projects/" itemprop="url" rel="index"><span itemprop="name">Projects</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/Table-Pretraining/" itemprop="url" rel="index"><span itemprop="name">Table Pretraining</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Projects/Table-Pretraining/" itemprop="url" rel="index"><span itemprop="name">Table Pretraining</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/NLG/" itemprop="url" rel="index"><span itemprop="name">NLG</span></a>
                 </span>
             </span>
 
@@ -249,15 +277,16 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>353</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
+              <span>2 mins.</span>
             </span>
+            <div class="post-description">A pretrained method for faithful table-to-text generation.</div>
 
         </div>
       </header>
@@ -268,25 +297,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-<h2 id="quick-start"><a class="markdownIt-Anchor" href="#quick-start"></a> Quick Start</h2>
-<h3 id="create-a-new-post"><a class="markdownIt-Anchor" href="#create-a-new-post"></a> Create a new post</h3>
-<pre class="highlight"><code class="bash">$ hexo new <span class="hljs-string">"My New Post"</span>
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server"><a class="markdownIt-Anchor" href="#run-server"></a> Run server</h3>
-<pre class="highlight"><code class="bash">$ hexo server
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files"><a class="markdownIt-Anchor" href="#generate-static-files"></a> Generate static files</h3>
-<pre class="highlight"><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites"><a class="markdownIt-Anchor" href="#deploy-to-remote-sites"></a> Deploy to remote sites</h3>
-<pre class="highlight"><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <blockquote>
+<p>Publication:</p>
+<p>Links: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2205.12697">Paper</a>, <a target="_blank" rel="noopener" href="https://github.com/Aolius/logic-pretraining">Code</a></p>
+<p>Key Words: logical forms, table-to-text</p>
+</blockquote>
+<h2 id="summary"><a class="markdownIt-Anchor" href="#summary"></a> Summary</h2>
+<p>Directly learning from table-text pairs for logical table-to-text generation task is difficult even for large pretrained models in that natural language are ambiguous and table-text pairs are scarce.  The authors propose a pretrained method to deal with this problem: first pretrain models on table-to-logic-form task, then finetune them on table-to-text task.</p>
+<h2 id="problem-statements-background"><a class="markdownIt-Anchor" href="#problem-statements-background"></a> Problem Statements &amp; Background</h2>
+<h3 id="logical-table-to-text-generation"><a class="markdownIt-Anchor" href="#logical-table-to-text-generation"></a> Logical Table-to-Text Generation</h3>
+<p>Table-to-text generation is a subtask of data-to-text generation. Given a table, a model is supposed to give the description of the table. Logical table-to-text generation, however, requires the description to be not only fluent but also logically reasonable, i.e. can be obtained by logically reasoning over the table.</p>
+<p>Current big language models do poor on logical table-to-text generation task (low fidelity) because of 1) ambiguity of natural language and 2) scarcity of table-text pairs.</p>
+<h3 id="uncontrolledcontrolled-generation"><a class="markdownIt-Anchor" href="#uncontrolledcontrolled-generation"></a> Uncontrolled/Controlled Generation</h3>
+<p>Uncontrolled generation means no control features (e.g. highlighting cells) are presented in the tables to control the topic of generation and scope of content selection. Controlled generation is exactly the reverse.</p>
+<h3 id="logical-forms"><a class="markdownIt-Anchor" href="#logical-forms"></a> Logical Forms</h3>
+<p>See details in <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2004.14579">Logic2Text paper</a>.</p>
+<h2 id="methods"><a class="markdownIt-Anchor" href="#methods"></a> Methods</h2>
+<p>First make models learn how to generate logical forms from tables; then make models learn how to generate texts from tables (expected to have logical inference ability). Logical forms act as an intermediate role to inject logical inference knowledge with low ambiguity to models.</p>
+<h3 id="pretraining-table-to-logic"><a class="markdownIt-Anchor" href="#pretraining-table-to-logic"></a> Pretraining: table-to-logic</h3>
+<p>Formulate the task as a <strong>seq2seq</strong> task. The input is a serialized table or sub-table and the target is a logical form of the table, linearized as a sequence.</p>
+<h4 id="data-collection-of-logical-forms"><a class="markdownIt-Anchor" href="#data-collection-of-logical-forms"></a> Data Collection of Logical Forms</h4>
+<p><img src="/2022/07/09/PLOG/image-20220710001335798.png" alt="image-20220710001335798"></p>
+<p>A template is first extracted from <strong>LOGIC2TEXT</strong> dataset (35 different templates in total). A template is just a logical form tree with some placeholder nodes that need to be instantiated. Each instantiated function would be executed on the table and the result of the execution would be fed to the parent function as an argument.</p>
+<p>Each successful sampling trial would lead to a valid logical form.</p>
+<h3 id="finetuning-table-to-text"><a class="markdownIt-Anchor" href="#finetuning-table-to-text"></a> Finetuning: table-to-text</h3>
+<p>Formulate the task as a <strong>seq2seq</strong> task. Given the serialized table or sub-table as input and the target English sentence, the objective is to generate an optimal sentence.</p>
+<h2 id="evaluations"><a class="markdownIt-Anchor" href="#evaluations"></a> Evaluations</h2>
+<h3 id="experiment-setup"><a class="markdownIt-Anchor" href="#experiment-setup"></a> Experiment Setup</h3>
+<ul>
+<li>datasets: <strong>LOGICNLG</strong>, <strong>CONGLOG</strong> (modified from <strong>LOGIC2TEXT</strong>)</li>
+</ul>
+<h3 id="results-of-interest"><a class="markdownIt-Anchor" href="#results-of-interest"></a> Results of Interest</h3>
+<p><img src="/2022/07/09/PLOG/image-20220710003037907.png" alt="image-20220710003037907"></p>
+<p><img src="/2022/07/09/PLOG/image-20220710003052672.png" alt="image-20220710003052672"></p>
+<h2 id="selected-references"><a class="markdownIt-Anchor" href="#selected-references"></a> Selected References</h2>
+<ul>
+<li>Zhiyu Chen, Wenhu Chen, Hanwen Zha, Xiyou Zhou, Yunkai Zhang, Sairam Sundaresan, and William Yang Wang. 2020b. Logic2text: Highfidelity natural language generation from logical forms. In Findings of the Association for Computational Linguistics: EMNLP 2020, pages 2096–2111.</li>
+</ul>
 
     </div>
 
@@ -295,17 +342,24 @@
     
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
+              <a href="/tags/NLP/" rel="tag"><i class="fa fa-tag"></i> NLP</a>
+              <a href="/tags/Table-Pretraining/" rel="tag"><i class="fa fa-tag"></i> Table Pretraining</a>
+              <a href="/tags/Table-To-Text/" rel="tag"><i class="fa fa-tag"></i> Table-To-Text</a>
+          </div>
 
         
 
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2022/05/21/turning-tables/" rel="next" title="[Turning Tables] Generating Examples from Semi-structured Tables for Endowing Language Models with Reasoning Skills">
-      [Turning Tables] Generating Examples from Semi-structured Tables for Endowing Language Models with Reasoning Skills <i class="fa fa-chevron-right"></i>
+    <a href="/2022/05/26/D2L/" rel="prev" title="[D2L] Dimensionality-Driven Learning with Noisy Labels">
+      <i class="fa fa-chevron-left"></i> [D2L] Dimensionality-Driven Learning with Noisy Labels
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -364,7 +418,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#quick-start"><span class="nav-number">1.</span> <span class="nav-text"> Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text"> Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run-server"><span class="nav-number">1.2.</span> <span class="nav-text"> Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text"> Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text"> Deploy to remote sites</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#summary"><span class="nav-number">1.</span> <span class="nav-text"> Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#problem-statements-background"><span class="nav-number">2.</span> <span class="nav-text"> Problem Statements &amp; Background</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#logical-table-to-text-generation"><span class="nav-number">2.1.</span> <span class="nav-text"> Logical Table-to-Text Generation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uncontrolledcontrolled-generation"><span class="nav-number">2.2.</span> <span class="nav-text"> Uncontrolled&#x2F;Controlled Generation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logical-forms"><span class="nav-number">2.3.</span> <span class="nav-text"> Logical Forms</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#methods"><span class="nav-number">3.</span> <span class="nav-text"> Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pretraining-table-to-logic"><span class="nav-number">3.1.</span> <span class="nav-text"> Pretraining: table-to-logic</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#data-collection-of-logical-forms"><span class="nav-number">3.1.1.</span> <span class="nav-text"> Data Collection of Logical Forms</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finetuning-table-to-text"><span class="nav-number">3.2.</span> <span class="nav-text"> Finetuning: table-to-text</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#evaluations"><span class="nav-number">4.</span> <span class="nav-text"> Evaluations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#experiment-setup"><span class="nav-number">4.1.</span> <span class="nav-text"> Experiment Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#results-of-interest"><span class="nav-number">4.2.</span> <span class="nav-text"> Results of Interest</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#selected-references"><span class="nav-number">5.</span> <span class="nav-text"> Selected References</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -506,6 +560,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
