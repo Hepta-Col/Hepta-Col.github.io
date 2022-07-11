@@ -22,34 +22,28 @@
     var CONFIG = {"hostname":"hepta-col.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="Existing NLG methods put limited emphasis on logical inference. The authors improved LM with such ability by a new training task called Logical NLG, accompanied with a new metric which evaluates the f">
+  <meta name="description" content="A data preprocessing methods for numerical-reasoning over tabular data">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[LogicNLG] Logical Natural Language Generation from Open-Domain Tables">
-<meta property="og:url" content="https://hepta-col.github.io/2022/05/24/LogicNLG/index.html">
+<meta property="og:title" content="[TaCube] Pre-computing Data Cubes for Answering Numerical-Reasoning Questions over Tabular Data">
+<meta property="og:url" content="https://hepta-col.github.io/2022/07/11/TaCube/index.html">
 <meta property="og:site_name" content="Taurus">
-<meta property="og:description" content="Existing NLG methods put limited emphasis on logical inference. The authors improved LM with such ability by a new training task called Logical NLG, accompanied with a new metric which evaluates the f">
+<meta property="og:description" content="A data preprocessing methods for numerical-reasoning over tabular data">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524151519647.png">
-<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524154947578.png">
-<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524155657103.png">
-<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524155727867.png">
-<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524155755136.png">
-<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524152917190.png">
-<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524170034608.png">
-<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524170251225.png">
-<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524171228070.png">
-<meta property="og:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524171658708.png">
-<meta property="article:published_time" content="2022-05-24T16:50:21.000Z">
-<meta property="article:modified_time" content="2022-05-25T02:45:11.930Z">
+<meta property="og:image" content="https://hepta-col.github.io/2022/07/11/TaCube/image-20220711182854674.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/07/11/TaCube/image-20220711184040820.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/07/11/TaCube/image-20220711184459050.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/07/11/TaCube/image-20220711185006753.png">
+<meta property="og:image" content="https://hepta-col.github.io/2022/07/11/TaCube/image-20220711185022061.png">
+<meta property="article:published_time" content="2022-07-11T22:00:26.000Z">
+<meta property="article:modified_time" content="2022-07-11T23:51:35.052Z">
 <meta property="article:author" content="Zhenting Qi">
 <meta property="article:tag" content="Deep Learning">
 <meta property="article:tag" content="NLP">
-<meta property="article:tag" content="NLG">
-<meta property="article:tag" content="Table-To-Text">
+<meta property="article:tag" content="Table Pretraining">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://hepta-col.github.io/2022/05/24/LogicNLG/image-20220524151519647.png">
+<meta name="twitter:image" content="https://hepta-col.github.io/2022/07/11/TaCube/image-20220711182854674.png">
 
-<link rel="canonical" href="https://hepta-col.github.io/2022/05/24/LogicNLG/">
+<link rel="canonical" href="https://hepta-col.github.io/2022/07/11/TaCube/">
 
 
 <script id="page-configurations">
@@ -62,7 +56,7 @@
   };
 </script>
 
-  <title>[LogicNLG] Logical Natural Language Generation from Open-Domain Tables | Taurus</title>
+  <title>[TaCube] Pre-computing Data Cubes for Answering Numerical-Reasoning Questions over Tabular Data | Taurus</title>
   
 
 
@@ -216,7 +210,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://hepta-col.github.io/2022/05/24/LogicNLG/">
+    <link itemprop="mainEntityOfPage" href="https://hepta-col.github.io/2022/07/11/TaCube/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -229,7 +223,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [LogicNLG] Logical Natural Language Generation from Open-Domain Tables
+          [TaCube] Pre-computing Data Cubes for Answering Numerical-Reasoning Questions over Tabular Data
         </h1>
 
         <div class="post-meta">
@@ -240,7 +234,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-05-24 11:50:21 / Modified: 21:45:11" itemprop="dateCreated datePublished" datetime="2022-05-24T11:50:21-05:00">2022-05-24</time>
+              <time title="Created: 2022-07-11 17:00:26 / Modified: 18:51:35" itemprop="dateCreated datePublished" datetime="2022-07-11T17:00:26-05:00">2022-07-11</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,7 +254,7 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Paper-Notes/NLP/NLG/" itemprop="url" rel="index"><span itemprop="name">NLG</span></a>
+                  <a href="/categories/Paper-Notes/NLP/Table-Pretraining/" itemprop="url" rel="index"><span itemprop="name">Table Pretraining</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -274,16 +268,16 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>4 mins.</span>
+              <span>2 mins.</span>
             </span>
-            <div class="post-description">Existing NLG methods put limited emphasis on logical inference. The authors improved LM with such ability by a new training task called Logical NLG, accompanied with a new metric which evaluates the fidelity of the generated language. What’s more, they built a new dataset, providing a new testbed for logical inference.</div>
+            <div class="post-description">A data preprocessing methods for numerical-reasoning over tabular data</div>
 
         </div>
       </header>
@@ -295,90 +289,46 @@
 
       
         <blockquote>
-<p>Publication: 2020 ACL</p>
-<p>Links: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.10404">Paper</a>, <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42802447/article/details/115366577">Interpretation (CN)</a>, <a target="_blank" rel="noopener" href="https://github.com/wenhuchen/LogicNLG">Code</a></p>
-<p>Key Words: NLG, table-to-text</p>
+<p>Publication:</p>
+<p>Links: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2205.12682">Paper</a>, <a target="_blank" rel="noopener" href="https://github.com/koalazf99/tacube">Code</a></p>
+<p>Key Words: table pretraining</p>
 </blockquote>
 <h2 id="summary"><a class="markdownIt-Anchor" href="#summary"></a> Summary</h2>
-<p>Existing NLG methods put limited emphasis on logical inference. The authors improved LM with such ability by a new training task called Logical NLG, accompanied with a new metric which evaluates the fidelity of the generated language. What’s more, they built a new dataset, providing a new testbed for logical inference.</p>
+<p>Current pretrained LMs are challenged by numerical reasoning tasks due to error-prone implicit calculation. The authors propose a method to pre-compute the numerical information in a table as “cubes” to facilitate LMs’ learning on them.</p>
 <h2 id="problem-statements-background"><a class="markdownIt-Anchor" href="#problem-statements-background"></a> Problem Statements &amp; Background</h2>
-<p>Given a table, large pretrained LMs are able to generate fluent and coherent texts, but they lack fidelity: the generated text should be consistent with the underlying data, knowledge, or meaning representation. Recent work have proposed several methods to tackle surface-level fidelity problems, but actually they are just restating the facts in the underlying data. Here is an example:</p>
-<img src="/2022/05/24/LogicNLG/image-20220524151519647.png" alt="image-20220524151519647" style="zoom: 67%;">
-<p>We hope that the LM is able to generate beyond superficial facts by inferring the facts that can be entailed by the presented facts, like the ones shown in the box “Logical Natural Language Generation”.</p>
+<p>Numerical reasoning over tabular data is challenging for LMs in terms of flexible calculations (addition, comparison, etc.). Currently there are two main streams of approaches: 1) logical-form based method; 2) directly generating the answer using auto-regressive pretrained LMs. But both of them have obvious shortcomings. Inspired by <strong>data cube</strong> concept in data mining field, the authors address this problem by pre-computing numerical calculation results on the table as cubes.</p>
 <h2 id="methods"><a class="markdownIt-Anchor" href="#methods"></a> Methods</h2>
-<h3 id="new-task-and-new-metric"><a class="markdownIt-Anchor" href="#new-task-and-new-metric"></a> New Task and New Metric</h3>
-<p>To equip LM with the stronger table-to-text generation ability, the authors propose a new task “logical NLG”, which means the generated texts should achieve high scores in <strong>logical fidelity</strong>. Existing IE-based metrics for evaluating generation have two major problems:</p>
-<img src="/2022/05/24/LogicNLG/image-20220524154947578.png" alt="image-20220524154947578" style="zoom: 67%;">
-<p>To avoid these problems, the authors proposed several alternating automatic metrics:</p>
-<h4 id="parsing-based-evaluation"><a class="markdownIt-Anchor" href="#parsing-based-evaluation"></a> Parsing-based Evaluation</h4>
-<p>It directly extracts the meaning representation from the generated sentence and executes it against the table to verify its correctness.</p>
-<img src="/2022/05/24/LogicNLG/image-20220524155657103.png" alt="image-20220524155657103" style="zoom: 67%;">
-<p>The sentence is represented by an expression (gray box), and then the expression could be executed against the table according to the fixed rule of the expression.</p>
-<h4 id="nli-based-evaluation"><a class="markdownIt-Anchor" href="#nli-based-evaluation"></a> NLI-based Evaluation</h4>
-<p>The NLI model is based on TableBERT, which linearizes the table into textual form and uses it as the evidence for natural language inference.</p>
-<img src="/2022/05/24/LogicNLG/image-20220524155727867.png" alt="image-20220524155727867" style="zoom:67%;">
-<h4 id="adversarial-evaluation"><a class="markdownIt-Anchor" href="#adversarial-evaluation"></a> Adversarial Evaluation</h4>
-<p>Manually annotate adversarial examples for the test/validation set by simply changing minimum words to revert the logic of the sentence. Such adversarial examples preserve linguistic components like length and style except the logic-related words to specifically disentangle the generation model’s reasoning skill.</p>
-<img src="/2022/05/24/LogicNLG/image-20220524155755136.png" alt="image-20220524155755136" style="zoom:67%;">
-<h4 id="discussion"><a class="markdownIt-Anchor" href="#discussion"></a> Discussion</h4>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Parsing-based (SP-Acc)</th>
-<th>NLI-based (NLI-Acc)</th>
-<th>Adversarial (Adv-Acc)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Pros</td>
-<td>unbiased, as it measures the peak samples in the model’s likelihood</td>
-<td>unbiased, as it measures the peak samples in the model’s likelihood</td>
-<td>accurate in terms of reflecting the model’s reasoning capability on the given samples</td>
-</tr>
-<tr>
-<td>Cons</td>
-<td>based on imperfect models, and thus evaluation score is inaccurate: more sensitive to number/calculation errors</td>
-<td>based on imperfect models, and thus evaluation score is inaccurate: more sensitive to semantic errors</td>
-<td>as the provided samples might not lie in the high-confidence area of the model’s distribution, it is biased in reflecting the model’s general reasoning capability</td>
-</tr>
-</tbody>
-</table>
-<h3 id="new-dataset"><a class="markdownIt-Anchor" href="#new-dataset"></a> New Dataset</h3>
-<p>The new dataset is built based on TabFact, a table-based fact-checking dataset with rich logical inferences in the annotated statements. This dataset contains rich logical inference, and every annotated sentence involves certain types of inference with minimum domain-specific knowledge. Sentences are made short, to focus on the problem of inference rather than linguistic complexity.</p>
-<img src="/2022/05/24/LogicNLG/image-20220524152917190.png" alt="image-20220524152917190" style="zoom: 50%;">
-<h3 id="training"><a class="markdownIt-Anchor" href="#training"></a> Training</h3>
-<h4 id="adversarial-regularization"><a class="markdownIt-Anchor" href="#adversarial-regularization"></a> Adversarial Regularization</h4>
-<p>First perform entity resolution to locate all the numbers, count, entities in the sentence and then randomly replace them with entities or numbers appearing in the table <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span>. These perturbed samples are used as adversarial examples to regularize the model’s behavior.</p>
-<img src="/2022/05/24/LogicNLG/image-20220524170034608.png" alt="image-20220524170034608" style="zoom:67%;">
-<p>Maximize the probability of correct samples, and minimize the probability of incorrect samples.</p>
-<h4 id="reinforcement-learning"><a class="markdownIt-Anchor" href="#reinforcement-learning"></a> Reinforcement Learning</h4>
-<p>To improve logical consistency of the generated sentence.</p>
-<img src="/2022/05/24/LogicNLG/image-20220524170251225.png" alt="image-20220524170251225" style="zoom: 67%;">
-<p>The full sentence receives a binary score <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mo stretchy="false">(</mo><mi>Y</mi><mo separator="true">,</mo><mi>T</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">r(Y, T)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mclose">)</span></span></span></span> from the semantic parser as reward, which denotes how good the sentence is, semantically.</p>
-<h3 id="generation"><a class="markdownIt-Anchor" href="#generation"></a> Generation</h3>
-<p>The authors utilize coarse-to-fine generation to avoid the problem of mismatch between sequence order and logical order.</p>
-<img src="/2022/05/24/LogicNLG/image-20220524171228070.png" alt="image-20220524171228070" style="zoom:80%;">
-<p>The generation is composed of two phases:</p>
+<h3 id="what-are-cubes"><a class="markdownIt-Anchor" href="#what-are-cubes"></a> What Are Cubes</h3>
+<p>A data cube for the table (<code>cube</code>) is <strong>a set of aggregations over cells in the same column or row</strong>, the the aggregation operations include: <code>sum</code>, <code>count</code>, and <code>average</code>. However, such results cannot cover non-aggregation operations like <code>diff</code> and <code>add</code>, so an extended data cube (<code>cube_ext</code>) is also pre-computed to include 2-operand operators such as <code>add</code>, <code>substraction</code>, <code>division</code>, <code>change ratio</code>.</p>
+<p><img src="/2022/07/11/TaCube/image-20220711182854674.png" alt="image-20220711182854674"></p>
+<h3 id="how-to-generate-cubes"><a class="markdownIt-Anchor" href="#how-to-generate-cubes"></a> How To Generate Cubes</h3>
+<h4 id="brute-force"><a class="markdownIt-Anchor" href="#brute-force"></a> Brute-Force</h4>
+<p>Simply traverse the whole search space and generate all the candidate results for the <code>cube_ext</code> of a given table. Two problems: 1) explosive time and space consumption; 2) too long model inputs.</p>
+<h4 id="rule-based"><a class="markdownIt-Anchor" href="#rule-based"></a> Rule-Based</h4>
+<p>The authors force the extracted candidate pre-computation to be same row or same column operation. Also, they require the generated cube to be question-sensitive, i.e. to generate specific cube items closely related to the question. The candidate operators, headers, cells are decided based on aligned mention in the question. The followings are templates for computing rule-based patterns:</p>
+<p><img src="/2022/07/11/TaCube/image-20220711184040820.png" alt="image-20220711184040820"></p>
+<p>In conclusion, three steps to generate a cube:</p>
 <ol>
-<li>generate template. Use the entity linker to identify the entities and numbers in the original sentence <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span></span> and replace them with placeholders.</li>
-<li>fill the placeholders.</li>
+<li>Decide operator type(s) by textual mention in questions.</li>
+<li>Find candidate columns and candidate rows by matching column headers, row header, and cell values with textual mention in questions.</li>
+<li>Try all the combinations using (1) operator; (2) <code>k_row</code> candidate rows and <code>k_column</code> candidate columns; (3) computing patterns. Each computation result serves an item in the cube.</li>
 </ol>
+<h3 id="how-to-make-cubes-to-be-model-inputs"><a class="markdownIt-Anchor" href="#how-to-make-cubes-to-be-model-inputs"></a> How To Make Cubes To Be Model Inputs</h3>
+<p><img src="/2022/07/11/TaCube/image-20220711184459050.png" alt="image-20220711184459050"></p>
+<p><code>CH</code>: column header; <code>RH</code>: row header; <code>op</code>: operand</p>
+<h3 id="how-to-reduce-cubes-sizes-cube-ranking"><a class="markdownIt-Anchor" href="#how-to-reduce-cubes-sizes-cube-ranking"></a> How To Reduce Cubes’ Sizes: Cube Ranking</h3>
+<h4 id="heuristics"><a class="markdownIt-Anchor" href="#heuristics"></a> Heuristics</h4>
+<p>The ranks of pre-computed results are decided by the similarity, i.e., the result with a higher similarity will have a higher rank.</p>
+<h4 id="neural-based"><a class="markdownIt-Anchor" href="#neural-based"></a> Neural-Based</h4>
+<p>Given the concatenation of a question, a pre-computed cube result, and a table, the neural-based model needs to give its prediction of <strong>whether the precomputed result is the correct answer</strong>.</p>
 <h2 id="evaluations"><a class="markdownIt-Anchor" href="#evaluations"></a> Evaluations</h2>
 <h3 id="experiment-setup"><a class="markdownIt-Anchor" href="#experiment-setup"></a> Experiment Setup</h3>
 <ul>
-<li>Non-pretrained models: LSTM, Transformer</li>
-<li>Pretrained models: Huggingface’s BERT &amp; GPT-2</li>
+<li>Dataset: TAT-QA; WikiTQ</li>
 </ul>
 <h3 id="results-of-interest"><a class="markdownIt-Anchor" href="#results-of-interest"></a> Results of Interest</h3>
-<p><img src="/2022/05/24/LogicNLG/image-20220524171658708.png" alt="image-20220524171658708"></p>
-<h2 id="conclusions"><a class="markdownIt-Anchor" href="#conclusions"></a> Conclusions</h2>
-<ol>
-<li>Pre-Trained LM can significantly boost both the fluency and logical fidelity metrics</li>
-<li>RL and Adversarial Training are trading fluency for fidelity</li>
-<li>Coarse-to-Fine generation can help partially alleviate the fidelity issue while maintaining high language fluency</li>
-</ol>
+<img src="/2022/07/11/TaCube/image-20220711185006753.png" alt="image-20220711185006753" style="zoom: 80%;">
+<img src="/2022/07/11/TaCube/image-20220711185022061.png" alt="image-20220711185022061" style="zoom:80%;">
 
     </div>
 
@@ -391,8 +341,7 @@
           <div class="post-tags">
               <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
               <a href="/tags/NLP/" rel="tag"><i class="fa fa-tag"></i> NLP</a>
-              <a href="/tags/NLG/" rel="tag"><i class="fa fa-tag"></i> NLG</a>
-              <a href="/tags/Table-To-Text/" rel="tag"><i class="fa fa-tag"></i> Table-To-Text</a>
+              <a href="/tags/Table-Pretraining/" rel="tag"><i class="fa fa-tag"></i> Table Pretraining</a>
           </div>
 
         
@@ -401,13 +350,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/05/23/RTFM/" rel="prev" title="[RTFM] Weakly-supervised Video Anomaly Detection with Robust Temporal Feature Magnitude Learning">
-      <i class="fa fa-chevron-left"></i> [RTFM] Weakly-supervised Video Anomaly Detection with Robust Temporal Feature Magnitude Learning
+    <a href="/2022/07/09/PLOG/" rel="prev" title="[PLOG] Table-to-Logic Pretraining for Logical Table-to-Text Generation">
+      <i class="fa fa-chevron-left"></i> [PLOG] Table-to-Logic Pretraining for Logical Table-to-Text Generation
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/05/24/latent-outlier/" rel="next" title="[Latent Outlier] Exposure for Anomaly Detection with Contaminated Data">
-      [Latent Outlier] Exposure for Anomaly Detection with Contaminated Data <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -466,7 +412,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#summary"><span class="nav-number">1.</span> <span class="nav-text"> Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#problem-statements-background"><span class="nav-number">2.</span> <span class="nav-text"> Problem Statements &amp; Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#methods"><span class="nav-number">3.</span> <span class="nav-text"> Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new-task-and-new-metric"><span class="nav-number">3.1.</span> <span class="nav-text"> New Task and New Metric</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#parsing-based-evaluation"><span class="nav-number">3.1.1.</span> <span class="nav-text"> Parsing-based Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nli-based-evaluation"><span class="nav-number">3.1.2.</span> <span class="nav-text"> NLI-based Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adversarial-evaluation"><span class="nav-number">3.1.3.</span> <span class="nav-text"> Adversarial Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#discussion"><span class="nav-number">3.1.4.</span> <span class="nav-text"> Discussion</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new-dataset"><span class="nav-number">3.2.</span> <span class="nav-text"> New Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#training"><span class="nav-number">3.3.</span> <span class="nav-text"> Training</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#adversarial-regularization"><span class="nav-number">3.3.1.</span> <span class="nav-text"> Adversarial Regularization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reinforcement-learning"><span class="nav-number">3.3.2.</span> <span class="nav-text"> Reinforcement Learning</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generation"><span class="nav-number">3.4.</span> <span class="nav-text"> Generation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#evaluations"><span class="nav-number">4.</span> <span class="nav-text"> Evaluations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#experiment-setup"><span class="nav-number">4.1.</span> <span class="nav-text"> Experiment Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#results-of-interest"><span class="nav-number">4.2.</span> <span class="nav-text"> Results of Interest</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusions"><span class="nav-number">5.</span> <span class="nav-text"> Conclusions</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#summary"><span class="nav-number">1.</span> <span class="nav-text"> Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#problem-statements-background"><span class="nav-number">2.</span> <span class="nav-text"> Problem Statements &amp; Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#methods"><span class="nav-number">3.</span> <span class="nav-text"> Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#what-are-cubes"><span class="nav-number">3.1.</span> <span class="nav-text"> What Are Cubes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-generate-cubes"><span class="nav-number">3.2.</span> <span class="nav-text"> How To Generate Cubes</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#brute-force"><span class="nav-number">3.2.1.</span> <span class="nav-text"> Brute-Force</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rule-based"><span class="nav-number">3.2.2.</span> <span class="nav-text"> Rule-Based</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-make-cubes-to-be-model-inputs"><span class="nav-number">3.3.</span> <span class="nav-text"> How To Make Cubes To Be Model Inputs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-reduce-cubes-sizes-cube-ranking"><span class="nav-number">3.4.</span> <span class="nav-text"> How To Reduce Cubes’ Sizes: Cube Ranking</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#heuristics"><span class="nav-number">3.4.1.</span> <span class="nav-text"> Heuristics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#neural-based"><span class="nav-number">3.4.2.</span> <span class="nav-text"> Neural-Based</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#evaluations"><span class="nav-number">4.</span> <span class="nav-text"> Evaluations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#experiment-setup"><span class="nav-number">4.1.</span> <span class="nav-text"> Experiment Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#results-of-interest"><span class="nav-number">4.2.</span> <span class="nav-text"> Results of Interest</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
